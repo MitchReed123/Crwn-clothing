@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./header.styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
@@ -17,8 +18,7 @@ const Header = ({ currentUser }) => (
       </Link>
       {currentUser ? (
         <div className="option" onClick={() => auth.signOut()}>
-          {" "}
-          SIGN OUT{" "}
+          SIGN OUT
         </div>
       ) : (
         <Link className="option" to="/signin">
@@ -28,5 +28,9 @@ const Header = ({ currentUser }) => (
     </div>
   </div>
 );
+//will reuse code like this in a lot of components to capture the user
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
 
-export default Header;
+export default connect(mapStateToProps)(Header);
